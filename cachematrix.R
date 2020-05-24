@@ -15,8 +15,11 @@ makeCacheMatrix <- function(x = matrix()) { ## initializes object x as the input
     }
     get <- function() x ## returns the matrix that was input to makeCacheMatrix
     setinv <- function(inverse) inv <<- inverse
-        ## anonymous function that searches parent environment for inv and redefines it to the input if found. This line of code also assigns that value to the object setinv
-    getinv <- function() inv ## anonymous function returns inv
+        ## searches parent environment for inv and redefines it to the new inverse matrix.
+        ## Note this does NOT redefine inv until it is called
+        ## It is only called in cacheSolve if getinv returns NULL
+    getinv <- function() inv ## returns inv if it exists or NULL if not yet cached
+        ## It might be more clear to place this before setinv
     list(set = set, get = get,
          setinv = setinv,
          getinv = getinv)
